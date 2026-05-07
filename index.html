@@ -1,0 +1,1864 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JDB Soccer Kits BV — Volendam</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,300;0,400;0,600;0,700;0,800;0,900;1,700;1,900&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    /* ============================================================
+       RESET & TOKENS
+    ============================================================ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy:    #0a0e1a;
+      --navy2:   #111827;
+      --navy3:   #1a2235;
+      --gold:    #f5c842;
+      --gold2:   #e8b800;
+      --orange:  #ff5c1a;
+      --white:   #ffffff;
+      --offwhite:#f0f2f5;
+      --muted:   #8a9ab5;
+      --border:  rgba(245,200,66,.18);
+      --ff-head: 'Barlow Condensed', sans-serif;
+      --ff-body: 'Barlow', sans-serif;
+      --radius:  6px;
+      --trans:   .3s ease;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--ff-body);
+      background: var(--navy);
+      color: var(--white);
+      overflow-x: hidden;
+    }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--navy2); }
+    ::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 3px; }
+
+    /* ============================================================
+       UTILITY
+    ============================================================ */
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+    .label {
+      font-family: var(--ff-head);
+      font-size: .75rem;
+      font-weight: 700;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+    .section-title {
+      font-family: var(--ff-head);
+      font-size: clamp(2.8rem, 6vw, 5rem);
+      font-weight: 900;
+      text-transform: uppercase;
+      line-height: .95;
+      letter-spacing: -.01em;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--ff-head);
+      font-weight: 700;
+      font-size: 1rem;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      padding: 14px 32px;
+      border-radius: var(--radius);
+      cursor: pointer;
+      border: none;
+      text-decoration: none;
+      transition: var(--trans);
+    }
+    .btn-primary {
+      background: var(--gold);
+      color: var(--navy);
+    }
+    .btn-primary:hover { background: #ffe066; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(245,200,66,.35); }
+    .btn-outline {
+      background: transparent;
+      color: var(--white);
+      border: 2px solid rgba(255,255,255,.35);
+    }
+    .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
+    .btn-small { padding: 10px 22px; font-size: .85rem; }
+
+    /* ============================================================
+       DIAGONAL STRIPE TEXTURE
+    ============================================================ */
+    .stripe-bg {
+      background-image: repeating-linear-gradient(
+        -45deg,
+        rgba(255,255,255,.025) 0px,
+        rgba(255,255,255,.025) 1px,
+        transparent 1px,
+        transparent 8px
+      );
+    }
+
+    /* ============================================================
+       NAV
+    ============================================================ */
+    #nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      transition: background .4s, box-shadow .4s;
+    }
+    #nav.scrolled {
+      background: rgba(10,14,26,.95);
+      backdrop-filter: blur(12px);
+      box-shadow: 0 2px 24px rgba(0,0,0,.5);
+    }
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 70px;
+    }
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+    .nav-logo-icon {
+      width: 38px; height: 38px;
+      background: var(--gold);
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      font-size: 1.2rem;
+    }
+    .nav-logo-text {
+      font-family: var(--ff-head);
+      font-weight: 900;
+      font-size: 1.3rem;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+      color: var(--white);
+      line-height: 1;
+    }
+    .nav-logo-text span { color: var(--gold); }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      list-style: none;
+    }
+    .nav-links a {
+      font-family: var(--ff-head);
+      font-weight: 600;
+      font-size: .9rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.7);
+      text-decoration: none;
+      transition: color var(--trans);
+    }
+    .nav-links a:hover { color: var(--gold); }
+    .nav-cta { margin-left: 8px; }
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 4px;
+      background: none;
+      border: none;
+    }
+    .hamburger span {
+      display: block;
+      width: 26px; height: 2px;
+      background: var(--white);
+      border-radius: 2px;
+      transition: var(--trans);
+    }
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      inset: 70px 0 0;
+      background: rgba(10,14,26,.97);
+      backdrop-filter: blur(16px);
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 32px;
+      z-index: 99;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a {
+      font-family: var(--ff-head);
+      font-weight: 800;
+      font-size: 2rem;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      color: var(--white);
+      text-decoration: none;
+    }
+    .mobile-menu a:hover { color: var(--gold); }
+
+    /* ============================================================
+       HERO
+    ============================================================ */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+      padding-top: 70px;
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 70% 50%, rgba(245,200,66,.08) 0%, transparent 60%),
+        radial-gradient(ellipse 50% 80% at 10% 80%, rgba(255,92,26,.07) 0%, transparent 55%),
+        linear-gradient(160deg, #0a0e1a 0%, #111827 50%, #0f1620 100%);
+    }
+    /* Soccer field lines overlay */
+    .hero-field-lines {
+      position: absolute;
+      inset: 0;
+      opacity: .06;
+      background-image:
+        radial-gradient(circle at 68% 50%, transparent 18%, rgba(255,255,255,.8) 18.5%, transparent 19%),
+        linear-gradient(90deg, transparent 67%, rgba(255,255,255,.8) 67.2%, transparent 67.4%);
+    }
+    .hero-inner {
+      position: relative;
+      z-index: 2;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+      width: 100%;
+      padding: 80px 0;
+    }
+    .hero-text .label { margin-bottom: 20px; }
+    .hero-headline {
+      font-family: var(--ff-head);
+      font-weight: 900;
+      font-size: clamp(3.5rem, 7vw, 6.5rem);
+      line-height: .9;
+      text-transform: uppercase;
+      letter-spacing: -.02em;
+      margin-bottom: 24px;
+    }
+    .hero-headline .accent { color: var(--gold); display: block; }
+    .hero-headline .stroke {
+      -webkit-text-stroke: 2px var(--white);
+      color: transparent;
+    }
+    .hero-sub {
+      font-size: 1.1rem;
+      font-weight: 400;
+      color: rgba(255,255,255,.7);
+      line-height: 1.7;
+      max-width: 420px;
+      margin-bottom: 36px;
+    }
+    .hero-btns { display: flex; gap: 14px; flex-wrap: wrap; }
+    .hero-badges {
+      display: flex;
+      gap: 24px;
+      margin-top: 48px;
+      flex-wrap: wrap;
+    }
+    .hero-badge {
+      display: flex;
+      flex-direction: column;
+    }
+    .hero-badge-num {
+      font-family: var(--ff-head);
+      font-size: 2rem;
+      font-weight: 900;
+      color: var(--gold);
+      line-height: 1;
+    }
+    .hero-badge-txt {
+      font-size: .78rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: .1em;
+    }
+
+    /* Owner photo */
+    .hero-photo-wrap {
+      position: relative;
+      display: flex;
+      justify-content: center;
+    }
+    .hero-photo-frame {
+  position: relative;
+  width: 100%;
+  max-width: 440px;
+  display: flex;
+  justify-content: center;
+}
+
+.hero-photo {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  aspect-ratio: 3/4;
+  object-fit: cover;
+  border-radius: 10px;
+  display: block;
+}
+   
+    .hero-photo-placeholder {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      aspect-ratio: 3/4;
+      background: linear-gradient(160deg, var(--navy3) 0%, #1e2d47 100%);
+      border-radius: 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      border: 1px solid rgba(245,200,66,.2);
+      overflow: hidden;
+    }
+    .hero-photo-placeholder .placeholder-icon {
+      font-size: 5rem;
+      opacity: .25;
+    }
+    .hero-photo-placeholder .placeholder-label {
+      font-family: var(--ff-head);
+      font-size: 1.1rem;
+      font-weight: 700;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.4);
+      border: 2px dashed rgba(245,200,66,.3);
+      padding: 12px 24px;
+      border-radius: 4px;
+    }
+    .hero-photo-placeholder .placeholder-sub {
+      font-size: .8rem;
+      color: var(--muted);
+      text-align: center;
+      max-width: 200px;
+    }
+    /* Decorative kit number */
+    .hero-kit-number {
+      position: absolute;
+      bottom: -24px;
+      right: -24px;
+      width: 100px; height: 100px;
+      background: var(--gold);
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      font-family: var(--ff-head);
+      font-weight: 900;
+      font-size: 3rem;
+      color: var(--navy);
+      z-index: 2;
+      box-shadow: 0 8px 32px rgba(245,200,66,.4);
+    }
+    .hero-location-tag {
+      position: absolute;
+      top: 24px;
+      left: -16px;
+      background: var(--navy3);
+      border: 1px solid var(--border);
+      border-radius: 40px;
+      padding: 8px 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--ff-head);
+      font-weight: 600;
+      font-size: .85rem;
+      letter-spacing: .06em;
+      z-index: 2;
+    }
+    .location-dot {
+      width: 8px; height: 8px;
+      background: var(--orange);
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: .5; transform: scale(1.5); }
+    }
+
+    /* ============================================================
+       TICKER BAND
+    ============================================================ */
+    .ticker {
+      background: var(--gold);
+      padding: 12px 0;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+    .ticker-inner {
+      display: inline-flex;
+      gap: 0;
+      animation: ticker 30s linear infinite;
+    }
+    .ticker-item {
+      font-family: var(--ff-head);
+      font-weight: 700;
+      font-size: 1rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--navy);
+      padding: 0 32px;
+    }
+    .ticker-sep { color: var(--navy); opacity: .4; }
+    @keyframes ticker {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    /* ============================================================
+       SHIRTS / PRODUCTS
+    ============================================================ */
+    #shirts {
+      padding: 120px 0;
+      background: var(--navy2);
+      position: relative;
+    }
+    #shirts::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    }
+    .section-header {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      margin-bottom: 60px;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+    .section-header-left .label { margin-bottom: 12px; }
+    .shirts-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    .shirt-card {
+      background: var(--navy3);
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,.07);
+      transition: transform var(--trans), box-shadow var(--trans), border-color var(--trans);
+      position: relative;
+    }
+    .shirt-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 48px rgba(0,0,0,.4);
+      border-color: rgba(245,200,66,.3);
+    }
+    .shirt-badge {
+      position: absolute;
+      top: 16px;
+      left: 16px;
+      z-index: 2;
+      background: var(--gold);
+      color: var(--navy);
+      font-family: var(--ff-head);
+      font-weight: 700;
+      font-size: .7rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 3px;
+    }
+    .shirt-badge.new { background: var(--orange); color: white; }
+    .shirt-img {
+      aspect-ratio: 4/3;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 4.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+    /* Each shirt gets a unique color accent */
+    .shirt-card:nth-child(1) .shirt-img { background: linear-gradient(135deg, #0d1b3e, #1a3a6e); }
+    .shirt-card:nth-child(2) .shirt-img { background: linear-gradient(135deg, #1a0a0a, #6e1a1a); }
+    .shirt-card:nth-child(3) .shirt-img { background: linear-gradient(135deg, #0a1a0a, #1a4a1a); }
+    .shirt-card:nth-child(4) .shirt-img { background: linear-gradient(135deg, #1a1a0a, #5a4a00); }
+    .shirt-card:nth-child(5) .shirt-img { background: linear-gradient(135deg, #0f0f0f, #2e2e2e); }
+    .shirt-card:nth-child(6) .shirt-img { background: linear-gradient(135deg, #12001a, #3d0f5c); }
+    /* Kit visual mock */
+    .kit-mock {
+      position: relative;
+      width: 90px;
+    }
+    .kit-body {
+      width: 90px; height: 100px;
+      border-radius: 8px 8px 4px 4px;
+      position: relative;
+    }
+    .kit-number-overlay {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-family: var(--ff-head);
+      font-size: 2.2rem;
+      font-weight: 900;
+      color: rgba(255,255,255,.9);
+      letter-spacing: -.02em;
+    }
+    .shirt-info {
+      padding: 20px 22px 24px;
+    }
+    .shirt-name {
+      font-family: var(--ff-head);
+      font-weight: 800;
+      font-size: 1.3rem;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+      margin-bottom: 4px;
+    }
+    .shirt-desc {
+      font-size: .82rem;
+      color: var(--muted);
+      margin-bottom: 16px;
+      line-height: 1.5;
+    }
+    .shirt-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .shirt-price {
+      font-family: var(--ff-head);
+      font-size: 1.6rem;
+      font-weight: 900;
+      color: var(--gold);
+    }
+    .shirt-price-sub {
+      font-size: .72rem;
+      color: var(--muted);
+      margin-top: -4px;
+    }
+
+    /* Shirt SVG mocks */
+    .shirt-svg {
+      width: 100px;
+      height: 110px;
+    }
+
+    /* ============================================================
+       CUSTOMIZATION
+    ============================================================ */
+    #customization {
+      padding: 120px 0;
+      background: var(--navy);
+      position: relative;
+      overflow: hidden;
+    }
+    .custom-bg-text {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-family: var(--ff-head);
+      font-size: clamp(8rem, 20vw, 18rem);
+      font-weight: 900;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.02);
+      white-space: nowrap;
+      pointer-events: none;
+      letter-spacing: -.04em;
+    }
+    .custom-inner {
+      position: relative;
+      z-index: 2;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+    .custom-features {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-top: 40px;
+    }
+    .custom-feature {
+      background: var(--navy3);
+      border: 1px solid rgba(255,255,255,.07);
+      border-radius: 10px;
+      padding: 20px;
+      transition: border-color var(--trans), transform var(--trans);
+    }
+    .custom-feature:hover {
+      border-color: rgba(245,200,66,.3);
+      transform: translateY(-2px);
+    }
+    .custom-feature-icon {
+      font-size: 1.8rem;
+      margin-bottom: 10px;
+    }
+    .custom-feature-title {
+      font-family: var(--ff-head);
+      font-weight: 700;
+      font-size: 1rem;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      margin-bottom: 4px;
+    }
+    .custom-feature-desc {
+      font-size: .8rem;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+    .custom-visual {
+      position: relative;
+      display: flex;
+      justify-content: center;
+    }
+    .custom-kit-display {
+      position: relative;
+      width: 260px;
+    }
+    .custom-kit-display .kit-main {
+      width: 260px;
+      height: 300px;
+      background: linear-gradient(160deg, #1a3a6e 0%, #0d1b3e 100%);
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      box-shadow: 0 24px 60px rgba(0,0,0,.5), 0 0 0 1px rgba(245,200,66,.15);
+    }
+    .kit-main-num {
+      font-family: var(--ff-head);
+      font-size: 7rem;
+      font-weight: 900;
+      color: rgba(255,255,255,.15);
+      position: absolute;
+    }
+    .kit-main-name {
+      position: absolute;
+      bottom: 40px;
+      font-family: var(--ff-head);
+      font-size: 1.4rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .15em;
+      color: rgba(255,255,255,.8);
+    }
+    .kit-main-logo {
+      position: absolute;
+      top: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 1.8rem;
+    }
+    /* Floating labels around kit */
+    .kit-label-float {
+      position: absolute;
+      background: var(--navy3);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 8px 14px;
+      font-family: var(--ff-head);
+      font-size: .78rem;
+      font-weight: 600;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--gold);
+      white-space: nowrap;
+    }
+    .kit-label-float::before {
+      content: '';
+      position: absolute;
+      width: 30px; height: 1px;
+      background: var(--border);
+    }
+    .kl-name { top: 20px; right: -140px; }
+    .kl-name::before { left: -32px; top: 50%; transform: translateY(-50%); }
+    .kl-number { top: 50%; right: -150px; transform: translateY(-50%); }
+    .kl-number::before { left: -32px; top: 50%; transform: translateY(-50%); }
+    .kl-position { bottom: 60px; right: -160px; }
+    .kl-position::before { left: -32px; top: 50%; transform: translateY(-50%); }
+    .kl-color { top: 20px; left: -130px; }
+    .kl-color::before { right: -32px; top: 50%; transform: translateY(-50%); }
+    .kl-team { bottom: 60px; left: -140px; }
+    .kl-team::before { right: -32px; top: 50%; transform: translateY(-50%); }
+
+    /* ============================================================
+       PROCESS
+    ============================================================ */
+    #process {
+      padding: 100px 0;
+      background: var(--navy3);
+      position: relative;
+    }
+    #process::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(245,200,66,.3), transparent);
+    }
+    .process-steps {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 32px;
+      margin-top: 56px;
+      position: relative;
+    }
+    .process-steps::before {
+      content: '';
+      position: absolute;
+      top: 28px;
+      left: 10%;
+      right: 10%;
+      height: 1px;
+      background: linear-gradient(90deg, var(--gold), transparent);
+      z-index: 0;
+    }
+    .process-step {
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+    .process-step-num {
+      width: 56px; height: 56px;
+      background: var(--gold);
+      color: var(--navy);
+      font-family: var(--ff-head);
+      font-weight: 900;
+      font-size: 1.4rem;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      margin: 0 auto 20px;
+    }
+    .process-step-title {
+      font-family: var(--ff-head);
+      font-weight: 700;
+      font-size: 1.1rem;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      margin-bottom: 8px;
+    }
+    .process-step-desc {
+      font-size: .82rem;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    /* ============================================================
+       ABOUT / VOLENDAM
+    ============================================================ */
+    #about {
+      padding: 120px 0;
+      background: var(--navy);
+      position: relative;
+      overflow: hidden;
+    }
+    .about-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+    .about-text .label { margin-bottom: 16px; }
+    .about-text .section-title { margin-bottom: 24px; }
+    .about-body {
+      font-size: 1.02rem;
+      color: rgba(255,255,255,.72);
+      line-height: 1.8;
+      margin-bottom: 16px;
+    }
+    .about-highlight {
+      margin-top: 36px;
+      padding: 24px;
+      border-left: 3px solid var(--gold);
+      background: rgba(245,200,66,.05);
+      border-radius: 0 8px 8px 0;
+      font-family: var(--ff-head);
+      font-size: 1.3rem;
+      font-weight: 700;
+      font-style: italic;
+      color: rgba(255,255,255,.9);
+      letter-spacing: .01em;
+    }
+    .about-visual {
+      position: relative;
+    }
+    .about-map-frame {
+      width: 100%;
+      aspect-ratio: 1;
+      background: linear-gradient(160deg, var(--navy3), #152035);
+      border-radius: 16px;
+      border: 1px solid rgba(245,200,66,.15);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      position: relative;
+      overflow: hidden;
+    }
+    .about-map-bg {
+      position: absolute;
+      inset: 0;
+      opacity: .04;
+      background-image: repeating-linear-gradient(0deg, white 0, white 1px, transparent 1px, transparent 40px),
+                        repeating-linear-gradient(90deg, white 0, white 1px, transparent 1px, transparent 40px);
+    }
+    .volendam-pin {
+      font-size: 3rem;
+      position: relative;
+      z-index: 1;
+      animation: bounce 2s ease-in-out infinite;
+    }
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+    .volendam-label {
+      font-family: var(--ff-head);
+      font-weight: 900;
+      font-size: 2.5rem;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+      position: relative;
+      z-index: 1;
+    }
+    .volendam-sub {
+      font-size: .85rem;
+      color: var(--muted);
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      position: relative;
+      z-index: 1;
+    }
+    .about-stats {
+      position: absolute;
+      bottom: -20px;
+      right: -20px;
+      background: var(--gold);
+      border-radius: 12px;
+      padding: 20px 24px;
+      color: var(--navy);
+    }
+    .about-stat-num {
+      font-family: var(--ff-head);
+      font-size: 2.5rem;
+      font-weight: 900;
+      line-height: 1;
+    }
+    .about-stat-txt {
+      font-size: .78rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      opacity: .7;
+    }
+
+    /* ============================================================
+       CONTACT / ORDER
+    ============================================================ */
+    #contact {
+      padding: 120px 0;
+      background: var(--navy2);
+      position: relative;
+    }
+    #contact::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(245,200,66,.3), transparent);
+    }
+    .contact-inner {
+      display: grid;
+      grid-template-columns: 1fr 1.4fr;
+      gap: 80px;
+      align-items: start;
+    }
+    .contact-info .label { margin-bottom: 16px; }
+    .contact-info .section-title { margin-bottom: 24px; }
+    .contact-info-body {
+      font-size: .95rem;
+      color: rgba(255,255,255,.65);
+      line-height: 1.8;
+      margin-bottom: 36px;
+    }
+    .contact-details { display: flex; flex-direction: column; gap: 16px; }
+    .contact-detail {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .contact-detail-icon {
+      width: 44px; height: 44px;
+      background: rgba(245,200,66,.1);
+      border: 1px solid rgba(245,200,66,.2);
+      border-radius: 10px;
+      display: grid;
+      place-items: center;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+    .contact-detail-label {
+      font-size: .72rem;
+      font-weight: 600;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 2px;
+    }
+    .contact-detail-value {
+      font-family: var(--ff-head);
+      font-weight: 600;
+      font-size: 1rem;
+      letter-spacing: .02em;
+    }
+
+    /* Form */
+    .contact-form {
+      background: var(--navy3);
+      border: 1px solid rgba(255,255,255,.07);
+      border-radius: 16px;
+      padding: 40px;
+    }
+    .form-title {
+      font-family: var(--ff-head);
+      font-weight: 800;
+      font-size: 1.6rem;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+      margin-bottom: 28px;
+    }
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+    .form-group.full { grid-column: 1 / -1; }
+    .form-label {
+      font-family: var(--ff-head);
+      font-weight: 600;
+      font-size: .8rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .form-input, .form-select, .form-textarea {
+      background: rgba(255,255,255,.05);
+      border: 1px solid rgba(255,255,255,.1);
+      border-radius: var(--radius);
+      padding: 12px 16px;
+      color: var(--white);
+      font-family: var(--ff-body);
+      font-size: .9rem;
+      transition: border-color var(--trans), background var(--trans);
+      width: 100%;
+    }
+    .form-input:focus, .form-select:focus, .form-textarea:focus {
+      outline: none;
+      border-color: var(--gold);
+      background: rgba(245,200,66,.04);
+    }
+    .form-select { appearance: none; cursor: pointer; }
+    .form-textarea { resize: vertical; min-height: 100px; }
+    .form-input::placeholder, .form-textarea::placeholder { color: rgba(255,255,255,.25); }
+    .form-submit { width: 100%; justify-content: center; margin-top: 8px; font-size: 1.1rem; padding: 16px; }
+    .form-note {
+      text-align: center;
+      font-size: .75rem;
+      color: var(--muted);
+      margin-top: 12px;
+    }
+
+    /* ============================================================
+       FOOTER
+    ============================================================ */
+    footer {
+      background: var(--navy);
+      border-top: 1px solid rgba(255,255,255,.07);
+      padding: 48px 0 32px;
+    }
+    .footer-inner {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1fr;
+      gap: 48px;
+      margin-bottom: 40px;
+    }
+    .footer-brand .nav-logo { margin-bottom: 16px; }
+    .footer-brand p {
+      font-size: .85rem;
+      color: var(--muted);
+      line-height: 1.7;
+      max-width: 280px;
+    }
+    .footer-col-title {
+      font-family: var(--ff-head);
+      font-weight: 700;
+      font-size: .8rem;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 16px;
+    }
+    .footer-links { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .footer-links a {
+      font-size: .85rem;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color var(--trans);
+    }
+    .footer-links a:hover { color: var(--white); }
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,.07);
+      padding-top: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .footer-copy {
+      font-size: .78rem;
+      color: var(--muted);
+    }
+    .footer-copy span { color: var(--gold); }
+
+    /* ============================================================
+       ANIMATIONS
+    ============================================================ */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(32px);
+      transition: opacity .7s ease, transform .7s ease;
+    }
+    .fade-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .fade-up:nth-child(2) { transition-delay: .1s; }
+    .fade-up:nth-child(3) { transition-delay: .2s; }
+    .fade-up:nth-child(4) { transition-delay: .3s; }
+    .fade-up:nth-child(5) { transition-delay: .4s; }
+    .fade-up:nth-child(6) { transition-delay: .5s; }
+
+    /* ============================================================
+       TOAST
+    ============================================================ */
+    #toast {
+      position: fixed;
+      bottom: 32px;
+      right: 32px;
+      background: var(--gold);
+      color: var(--navy);
+      font-family: var(--ff-head);
+      font-weight: 700;
+      font-size: 1rem;
+      letter-spacing: .06em;
+      padding: 16px 28px;
+      border-radius: 8px;
+      z-index: 200;
+      transform: translateY(120px);
+      opacity: 0;
+      transition: transform .4s ease, opacity .4s ease;
+      box-shadow: 0 8px 24px rgba(245,200,66,.3);
+    }
+    #toast.show { transform: translateY(0); opacity: 1; }
+
+    /* ============================================================
+       RESPONSIVE
+    ============================================================ */
+    @media (max-width: 1024px) {
+      .shirts-grid { grid-template-columns: repeat(2, 1fr); }
+      .custom-inner { gap: 48px; }
+      .kl-name, .kl-number, .kl-position, .kl-color, .kl-team { display: none; }
+      .footer-inner { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (max-width: 768px) {
+      .nav-links, .nav-cta { display: none; }
+      .hamburger { display: flex; }
+
+      .hero-inner { grid-template-columns: 1fr; gap: 40px; text-align: center; }
+      .hero-sub { margin: 0 auto 36px; }
+      .hero-btns { justify-content: center; }
+      .hero-badges { justify-content: center; }
+      .hero-photo-wrap { order: -1; }
+      .hero-photo-frame { max-width: 280px; }
+      .hero-kit-number { width: 72px; height: 72px; font-size: 2rem; bottom: -16px; right: -8px; }
+
+      .shirts-grid { grid-template-columns: 1fr; max-width: 380px; margin: 0 auto; }
+      .section-header { flex-direction: column; align-items: flex-start; }
+
+      .custom-inner { grid-template-columns: 1fr; }
+      .custom-visual { display: none; }
+      .custom-features { grid-template-columns: 1fr; }
+
+      .process-steps { grid-template-columns: 1fr 1fr; }
+      .process-steps::before { display: none; }
+
+      .about-inner { grid-template-columns: 1fr; }
+      .about-stats { position: static; margin-top: 16px; display: inline-flex; gap: 16px; align-items: center; }
+
+      .contact-inner { grid-template-columns: 1fr; }
+      .form-row { grid-template-columns: 1fr; }
+
+      .footer-inner { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 480px) {
+      .process-steps { grid-template-columns: 1fr; }
+      .contact-form { padding: 24px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ============================================================
+     NAVIGATION
+============================================================ -->
+<nav id="nav">
+  <div class="container">
+    <div class="nav-inner">
+      <a href="#hero" class="nav-logo">
+        <div class="nav-logo-icon">⚽</div>
+        <div class="nav-logo-text">JDB <span>Soccer</span> Kits BV</div>
+      </a>
+      <ul class="nav-links">
+        <li><a href="#shirts">Tenues</a></li>
+        <li><a href="#customization">Personaliseren</a></li>
+        <li><a href="#process">Werkwijze</a></li>
+        <li><a href="#about">Over Ons</a></li>
+        <li><a href="#contact" class="btn btn-primary btn-small nav-cta">Bestellen</a></li>
+      </ul>
+      <button class="hamburger" id="hamburger" aria-label="Menu openen">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#shirts" onclick="closeMobileMenu()">Tenues</a>
+  <a href="#customization" onclick="closeMobileMenu()">Personaliseren</a>
+  <a href="#process" onclick="closeMobileMenu()">Werkwijze</a>
+  <a href="#about" onclick="closeMobileMenu()">Over Ons</a>
+  <a href="#contact" class="btn btn-primary" onclick="closeMobileMenu()">Bestellen</a>
+</div>
+
+<!-- ============================================================
+     HERO
+============================================================ -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-field-lines"></div>
+  <div class="container">
+    <div class="hero-inner">
+
+      <!-- Text -->
+      <div class="hero-text">
+        <p class="label">🏆 Volendam, Nederland</p>
+        <h1 class="hero-headline">
+          <span class="stroke">Jouw</span>
+          <span class="accent">Tenue,</span>
+          Jouw Regels
+        </h1>
+        <p class="hero-sub">
+          Volledig op maat gemaakte voetbaltenues uit Volendam.
+          Van naam en rugnummer tot teamkleuren — wij maken het precies zoals jij het wilt.
+        </p>
+        <div class="hero-btns">
+          <a href="#shirts" class="btn btn-primary">Bekijk Tenues</a>
+          <a href="#contact" class="btn btn-outline">Gratis Offerte</a>
+        </div>
+        <div class="hero-badges">
+          <div class="hero-badge">
+            <span class="hero-badge-num">100%</span>
+            <span class="hero-badge-txt">Op Maat</span>
+          </div>
+          <div class="hero-badge">
+            <span class="hero-badge-num">14d</span>
+            <span class="hero-badge-txt">Levertijd</span>
+          </div>
+          <div class="hero-badge">
+            <span class="hero-badge-num">★ 5.0</span>
+            <span class="hero-badge-txt">Klantscore</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Owner Photo -->
+      <div class="hero-photo-wrap">
+        <div class="hero-photo-frame">
+          <div class="hero-location-tag">
+            <span class="location-dot"></span>
+            Volendam, NH
+          </div>
+
+          <!-- =====================================================
+               FOTO PLACEHOLDER — Vervang dit blok door een
+               <img src="foto-eigenaar.jpg" alt="Eigenaar JDB Soccer Kits" ... />
+          ====================================================== -->
+          <img 
+            src="images/justin-png.jpeg"
+            alt="Eigenaar JDB Soccer Kits"
+            class="hero-photo"
+/>
+          <!-- ===================================================== -->
+
+          <div class="hero-kit-number">10</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     TICKER
+============================================================ -->
+<div class="ticker" aria-hidden="true">
+  <div class="ticker-inner">
+    <!-- doubled for seamless loop -->
+    <span class="ticker-item">Volledig Gepersonaliseerd</span><span class="ticker-sep">✦</span>
+    <span class="ticker-item">Naam &amp; Rugnummer</span><span class="ticker-sep">✦</span>
+    <span class="ticker-item">Teamkleuren naar Keuze</span><span class="ticker-sep">✦</span>
+    <span class="ticker-item">Spelersnaam &amp; Positie</span><span class="ticker-sep">✦</span>
+    <span class="ticker-item">Premium Kwaliteit</span><span class="ticker-sep">✦</span>
+    <span class="ticker-item">Gemaakt in Volendam</span><span class="ticker-sep">✦</span>
+    <span class="ticker-item">Snelle Levering</span><span class="ticker-sep">✦</span>
+    <span class="ticker-item">Volledig Gepersonaliseerd</span><span class="ticker-sep">✦</span>
+    <span class="ticker-item">Naam &amp; Rugnummer</span><span class="ticker-sep">✦</span>
+    <span class="ticker-item">Teamkleuren naar Keuze</span><span class="ticker-sep">✦</span>
+    <span class="ticker-item">Spelersnaam &amp; Positie</span><span class="ticker-sep">✦</span>
+    <span class="ticker-item">Premium Kwaliteit</span><span class="ticker-sep">✦</span>
+    <span class="ticker-item">Gemaakt in Volendam</span><span class="ticker-sep">✦</span>
+    <span class="ticker-item">Snelle Levering</span><span class="ticker-sep">✦</span>
+  </div>
+</div>
+
+<!-- ============================================================
+     SHIRTS / PRODUCTS
+============================================================ -->
+<section id="shirts">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-header-left">
+        <p class="label">Ons Assortiment</p>
+        <h2 class="section-title">Onze<br>Tenues</h2>
+      </div>
+      <a href="#contact" class="btn btn-outline">Eigen Ontwerp? Vraag Aan</a>
+    </div>
+
+    <div class="shirts-grid">
+
+      <!-- Shirt 1 -->
+      <div class="shirt-card fade-up">
+        <span class="shirt-badge">Bestseller</span>
+        <div class="shirt-img">
+          <svg class="shirt-svg" viewBox="0 0 100 110" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M30 10 L10 30 L20 35 L15 90 L85 90 L80 35 L90 30 L70 10 L60 20 L40 20 Z" fill="rgba(255,255,255,0.12)" stroke="rgba(255,255,255,0.3)" stroke-width="1.5"/>
+            <text x="50" y="68" text-anchor="middle" font-family="Barlow Condensed,sans-serif" font-weight="900" font-size="28" fill="rgba(255,255,255,0.6)">10</text>
+          </svg>
+        </div>
+        <div class="shirt-info">
+          <div class="shirt-name">Pro Classic</div>
+          <div class="shirt-desc">Strak klassiek design, geschikt voor elke teamstijl. Volledig aanpasbaar.</div>
+          <div class="shirt-footer">
+            <div>
+              <div class="shirt-price">v.a. €29,95</div>
+              <div class="shirt-price-sub">per shirt, incl. bedrukking</div>
+            </div>
+            <a href="#contact" class="btn btn-primary btn-small">Personaliseren</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Shirt 2 -->
+      <div class="shirt-card fade-up">
+        <span class="shirt-badge new">Nieuw</span>
+        <div class="shirt-img">
+          <svg class="shirt-svg" viewBox="0 0 100 110" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M30 10 L10 30 L20 35 L15 90 L85 90 L80 35 L90 30 L70 10 L60 20 L40 20 Z" fill="rgba(220,30,30,0.18)" stroke="rgba(255,80,80,0.4)" stroke-width="1.5"/>
+            <path d="M15 90 L85 90 L85 70 L15 70 Z" fill="rgba(255,255,255,0.06)"/>
+            <text x="50" y="68" text-anchor="middle" font-family="Barlow Condensed,sans-serif" font-weight="900" font-size="28" fill="rgba(255,255,255,0.6)">7</text>
+          </svg>
+        </div>
+        <div class="shirt-info">
+          <div class="shirt-name">Strike Edition</div>
+          <div class="shirt-desc">Dynamisch design met contrasterende band. Perfect voor aanvallers.</div>
+          <div class="shirt-footer">
+            <div>
+              <div class="shirt-price">v.a. €32,95</div>
+              <div class="shirt-price-sub">per shirt, incl. bedrukking</div>
+            </div>
+            <a href="#contact" class="btn btn-primary btn-small">Personaliseren</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Shirt 3 -->
+      <div class="shirt-card fade-up">
+        <div class="shirt-img">
+          <svg class="shirt-svg" viewBox="0 0 100 110" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M30 10 L10 30 L20 35 L15 90 L85 90 L80 35 L90 30 L70 10 L60 20 L40 20 Z" fill="rgba(20,100,20,0.2)" stroke="rgba(60,200,60,0.35)" stroke-width="1.5"/>
+            <line x1="50" y1="20" x2="50" y2="90" stroke="rgba(255,255,255,0.08)" stroke-width="2"/>
+            <text x="50" y="68" text-anchor="middle" font-family="Barlow Condensed,sans-serif" font-weight="900" font-size="28" fill="rgba(255,255,255,0.6)">1</text>
+          </svg>
+        </div>
+        <div class="shirt-info">
+          <div class="shirt-name">Keeper Pro</div>
+          <div class="shirt-desc">Speciaal ontworpen keeperstenue met extra grip-textuur effect.</div>
+          <div class="shirt-footer">
+            <div>
+              <div class="shirt-price">v.a. €34,95</div>
+              <div class="shirt-price-sub">per shirt, incl. bedrukking</div>
+            </div>
+            <a href="#contact" class="btn btn-primary btn-small">Personaliseren</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Shirt 4 -->
+      <div class="shirt-card fade-up">
+        <span class="shirt-badge">Populair</span>
+        <div class="shirt-img">
+          <svg class="shirt-svg" viewBox="0 0 100 110" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M30 10 L10 30 L20 35 L15 90 L85 90 L80 35 L90 30 L70 10 L60 20 L40 20 Z" fill="rgba(180,130,0,0.2)" stroke="rgba(245,200,66,0.4)" stroke-width="1.5"/>
+            <path d="M30 10 L70 10 L60 20 L40 20 Z" fill="rgba(245,200,66,0.15)"/>
+            <text x="50" y="68" text-anchor="middle" font-family="Barlow Condensed,sans-serif" font-weight="900" font-size="28" fill="rgba(245,200,66,0.7)">9</text>
+          </svg>
+        </div>
+        <div class="shirt-info">
+          <div class="shirt-name">Gold Edition</div>
+          <div class="shirt-desc">Luxe uitstraling met gouden details. Ideaal voor kampioensfeest.</div>
+          <div class="shirt-footer">
+            <div>
+              <div class="shirt-price">v.a. €36,95</div>
+              <div class="shirt-price-sub">per shirt, incl. bedrukking</div>
+            </div>
+            <a href="#contact" class="btn btn-primary btn-small">Personaliseren</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Shirt 5 -->
+      <div class="shirt-card fade-up">
+        <div class="shirt-img">
+          <svg class="shirt-svg" viewBox="0 0 100 110" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M30 10 L10 30 L20 35 L15 90 L85 90 L80 35 L90 30 L70 10 L60 20 L40 20 Z" fill="rgba(60,60,60,0.3)" stroke="rgba(200,200,200,0.3)" stroke-width="1.5"/>
+            <path d="M20 35 L15 90 L25 90 L30 35 Z" fill="rgba(255,255,255,0.04)"/>
+            <path d="M70 35 L75 90 L85 90 L80 35 Z" fill="rgba(255,255,255,0.04)"/>
+            <text x="50" y="68" text-anchor="middle" font-family="Barlow Condensed,sans-serif" font-weight="900" font-size="28" fill="rgba(255,255,255,0.6)">4</text>
+          </svg>
+        </div>
+        <div class="shirt-info">
+          <div class="shirt-name">Shadow Kit</div>
+          <div class="shirt-desc">Strak zwart design voor de moderne voetballer. Tijdloos en krachtig.</div>
+          <div class="shirt-footer">
+            <div>
+              <div class="shirt-price">v.a. €29,95</div>
+              <div class="shirt-price-sub">per shirt, incl. bedrukking</div>
+            </div>
+            <a href="#contact" class="btn btn-primary btn-small">Personaliseren</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Shirt 6 -->
+      <div class="shirt-card fade-up">
+        <span class="shirt-badge new">Nieuw</span>
+        <div class="shirt-img">
+          <svg class="shirt-svg" viewBox="0 0 100 110" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M30 10 L10 30 L20 35 L15 90 L85 90 L80 35 L90 30 L70 10 L60 20 L40 20 Z" fill="rgba(80,20,120,0.25)" stroke="rgba(160,60,220,0.4)" stroke-width="1.5"/>
+            <path d="M30 10 L50 55 L70 10 L60 20 L40 20 Z" fill="rgba(245,200,66,0.1)"/>
+            <text x="50" y="68" text-anchor="middle" font-family="Barlow Condensed,sans-serif" font-weight="900" font-size="28" fill="rgba(255,255,255,0.6)">11</text>
+          </svg>
+        </div>
+        <div class="shirt-info">
+          <div class="shirt-name">Royal Purple</div>
+          <div class="shirt-desc">Koningspaars design met V-hals en aansluitende snit voor optimale prestaties.</div>
+          <div class="shirt-footer">
+            <div>
+              <div class="shirt-price">v.a. €31,95</div>
+              <div class="shirt-price-sub">per shirt, incl. bedrukking</div>
+            </div>
+            <a href="#contact" class="btn btn-primary btn-small">Personaliseren</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     CUSTOMIZATION
+============================================================ -->
+<section id="customization">
+  <div class="custom-bg-text" aria-hidden="true">JDB</div>
+  <div class="container">
+    <div class="custom-inner">
+
+      <!-- Text + Features -->
+      <div>
+        <p class="label">Jouw Identiteit</p>
+        <h2 class="section-title">100%<br>Personali<br>seerbaar</h2>
+        <p style="color:rgba(255,255,255,.65);line-height:1.8;margin-top:16px;font-size:.95rem;">
+          Bij JDB Soccer Kits draait alles om maatwerk. Van het rugnummer tot de teamkleur,
+          van de spelerspositie tot het clublogo — jij bepaalt elk detail.
+        </p>
+
+        <div class="custom-features">
+          <div class="custom-feature fade-up">
+            <div class="custom-feature-icon">✍️</div>
+            <div class="custom-feature-title">Naam</div>
+            <div class="custom-feature-desc">Eigen naam of bijnaam in elke gewenste lettertype.</div>
+          </div>
+          <div class="custom-feature fade-up">
+            <div class="custom-feature-icon">🔢</div>
+            <div class="custom-feature-title">Rugnummer</div>
+            <div class="custom-feature-desc">Ieder rugnummer van 1 t/m 99 in jouw stijl.</div>
+          </div>
+          <div class="custom-feature fade-up">
+            <div class="custom-feature-icon">📍</div>
+            <div class="custom-feature-title">Positie</div>
+            <div class="custom-feature-desc">Keepersveld, middenvelder, spits — jij kiest.</div>
+          </div>
+          <div class="custom-feature fade-up">
+            <div class="custom-feature-icon">🎨</div>
+            <div class="custom-feature-title">Kleuren</div>
+            <div class="custom-feature-desc">Volledig aanpasbaar aan jouw team­kleuren.</div>
+          </div>
+          <div class="custom-feature fade-up">
+            <div class="custom-feature-icon">🏷️</div>
+            <div class="custom-feature-title">Teamnaam</div>
+            <div class="custom-feature-desc">Clubnaam of teamnaam prominent op het shirt.</div>
+          </div>
+          <div class="custom-feature fade-up">
+            <div class="custom-feature-icon">🖼️</div>
+            <div class="custom-feature-title">Logo</div>
+            <div class="custom-feature-desc">Upload jouw clublogo voor een professionele look.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Visual Kit Display -->
+      <div class="custom-visual">
+        <div class="custom-kit-display">
+          <div class="kit-main">
+            <div class="kit-main-num">10</div>
+            <div class="kit-main-logo">⚽</div>
+            <div class="kit-main-name">De Boer</div>
+          </div>
+          <div class="kit-label-float kl-name">Naam</div>
+          <div class="kit-label-float kl-number">Rugnummer</div>
+          <div class="kit-label-float kl-position">Positie</div>
+          <div class="kit-label-float kl-color">Kleur</div>
+          <div class="kit-label-float kl-team">Teamnaam</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     PROCESS
+============================================================ -->
+<section id="process">
+  <div class="container">
+    <div style="text-align:center;">
+      <p class="label">Hoe Het Werkt</p>
+      <h2 class="section-title" style="display:inline-block">In 4 Stappen<br>Naar Jouw Tenue</h2>
+    </div>
+    <div class="process-steps">
+      <div class="process-step fade-up">
+        <div class="process-step-num">1</div>
+        <div class="process-step-title">Kies Je Design</div>
+        <div class="process-step-desc">Selecteer een basismodel uit ons assortiment of beschrijf je eigen idee.</div>
+      </div>
+      <div class="process-step fade-up">
+        <div class="process-step-num">2</div>
+        <div class="process-step-title">Personaliseer</div>
+        <div class="process-step-desc">Voeg naam, nummer, positie, kleuren en logo toe via ons bestelformulier.</div>
+      </div>
+      <div class="process-step fade-up">
+        <div class="process-step-num">3</div>
+        <div class="process-step-title">Bevestig Ontwerp</div>
+        <div class="process-step-desc">Wij sturen een digitale proef ter goedkeuring voor we beginnen met produceren.</div>
+      </div>
+      <div class="process-step fade-up">
+        <div class="process-step-num">4</div>
+        <div class="process-step-title">Ontvang Jouw Kit</div>
+        <div class="process-step-desc">Binnen 14 werkdagen staat jouw gepersonaliseerde tenue op de deurmat.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     ABOUT
+============================================================ -->
+<section id="about">
+  <div class="container">
+    <div class="about-inner">
+
+      <div class="about-text fade-up">
+        <p class="label">Trots Uit Volendam</p>
+        <h2 class="section-title">Over<br>JDB Soccer<br>Kits</h2>
+        <p class="about-body">
+          JDB Soccer Kits BV is opgericht vanuit een passie voor voetbal en de wens om
+          elke speler en elk team een unieke identiteit te geven op het veld.
+          Vanuit ons thuisstad Volendam — een stad met een rijke voetbalhistorie —
+          leveren wij volledig gepersonaliseerde tenues aan teams en individuen door heel Nederland.
+        </p>
+        <p class="about-body">
+          Of je nu een amateurclub bent die professioneel voor de dag wil komen,
+          een verjaardag wil vieren met een origineel cadeau, of gewoon je favoriete
+          rugnummer op je rug wil dragen — bij JDB Soccer Kits ben je aan het juiste adres.
+        </p>
+        <div class="about-highlight">
+          "Iedere speler verdient een tenue dat bij hem past."
+        </div>
+      </div>
+
+      <div class="about-visual fade-up">
+        <div class="about-map-frame">
+          <div class="about-map-bg"></div>
+          <div class="volendam-pin">📍</div>
+          <div class="volendam-label">Volendam</div>
+          <div class="volendam-sub">Noord-Holland, Nederland</div>
+        </div>
+        <div class="about-stats">
+          <div class="about-stat-num">500+</div>
+          <div class="about-stat-txt">Tevreden Klanten</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     CONTACT / ORDER
+============================================================ -->
+<section id="contact">
+  <div class="container">
+    <div class="contact-inner">
+
+      <!-- Info -->
+      <div class="contact-info fade-up">
+        <p class="label">Neem Contact Op</p>
+        <h2 class="section-title">Bestel Nu<br>Jouw Kit</h2>
+        <p class="contact-info-body">
+          Klaar om jouw gepersonaliseerde tenue te bestellen?
+          Vul het formulier in of neem direct contact met ons op.
+          We reageren binnen 24 uur.
+        </p>
+        <div class="contact-details">
+          <div class="contact-detail">
+            <div class="contact-detail-icon">📍</div>
+            <div>
+              <div class="contact-detail-label">Locatie</div>
+              <div class="contact-detail-value">Volendam, Noord-Holland</div>
+            </div>
+          </div>
+          <div class="contact-detail">
+            <div class="contact-detail-icon">📧</div>
+            <div>
+              <div class="contact-detail-label">E-mail</div>
+              <div class="contact-detail-value">info@jdbsoccerkits.nl</div>
+            </div>
+          </div>
+          <div class="contact-detail">
+            <div class="contact-detail-icon">📱</div>
+            <div>
+              <div class="contact-detail-label">Telefoon / WhatsApp</div>
+              <div class="contact-detail-value">+31 (0)6 — [nummer invoegen]</div>
+            </div>
+          </div>
+          <div class="contact-detail">
+            <div class="contact-detail-icon">⏱️</div>
+            <div>
+              <div class="contact-detail-label">Levertijd</div>
+              <div class="contact-detail-value">Binnen 14 werkdagen</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Form -->
+      <div class="contact-form fade-up">
+        <div class="form-title">Bestelformulier</div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="fname">Voornaam</label>
+            <input type="text" id="fname" class="form-input" placeholder="Jan" />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="lname">Achternaam</label>
+            <input type="text" id="lname" class="form-input" placeholder="de Boer" />
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="email">E-mailadres</label>
+            <input type="email" id="email" class="form-input" placeholder="jan@email.nl" />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="phone">Telefoon</label>
+            <input type="tel" id="phone" class="form-input" placeholder="+31 6..." />
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="shirt-type">Tenue Model</label>
+            <select id="shirt-type" class="form-select">
+              <option value="">— Kies een model —</option>
+              <option>Pro Classic</option>
+              <option>Strike Edition</option>
+              <option>Keeper Pro</option>
+              <option>Gold Edition</option>
+              <option>Shadow Kit</option>
+              <option>Royal Purple</option>
+              <option>Eigen ontwerp</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="quantity">Aantal Shirts</label>
+            <input type="number" id="quantity" class="form-input" placeholder="bv. 14" min="1" />
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="player-name">Naam op Shirt</label>
+            <input type="text" id="player-name" class="form-input" placeholder="bv. De Boer" />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="number">Rugnummer</label>
+            <input type="text" id="number" class="form-input" placeholder="bv. 10" />
+          </div>
+        </div>
+        <div class="form-group full">
+          <label class="form-label" for="message">Aanvullende Wensen</label>
+          <textarea id="message" class="form-textarea" placeholder="Beschrijf hier je wensen: teamkleuren, logo, positie, teamname…"></textarea>
+        </div>
+        <button type="button" class="btn btn-primary form-submit" onclick="handleSubmit()">
+          ⚽ Verstuur Bestelling
+        </button>
+        <p class="form-note">✓ Geen spam. Wij reageren binnen 24 uur met een vrijblijvende offerte.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     FOOTER
+============================================================ -->
+<footer>
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <a href="#hero" class="nav-logo">
+          <div class="nav-logo-icon">⚽</div>
+          <div class="nav-logo-text">JDB <span>Soccer</span> Kits BV</div>
+        </a>
+        <p>Volledig gepersonaliseerde voetbaltenues uit Volendam. Kwaliteit, stijl en maatwerk voor elk team.</p>
+      </div>
+      <div>
+        <div class="footer-col-title">Navigatie</div>
+        <ul class="footer-links">
+          <li><a href="#shirts">Tenues</a></li>
+          <li><a href="#customization">Personaliseren</a></li>
+          <li><a href="#process">Werkwijze</a></li>
+          <li><a href="#about">Over Ons</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Contact</div>
+        <ul class="footer-links">
+          <li><a href="#">📍 Volendam, NH</a></li>
+          <li><a href="mailto:info@jdbsoccerkits.nl">📧 info@jdbsoccerkits.nl</a></li>
+          <li><a href="#">📱 WhatsApp</a></li>
+          <li><a href="#">🌐 Instagram</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-copy">©️ 2025 <span>JDB Soccer Kits BV</span>. Alle rechten voorbehouden. Volendam, Nederland.</div>
+      <div class="footer-copy">KvK: [nummer invoegen] · BTW: [nummer invoegen]</div>
+    </div>
+  </div>
+</footer>
+
+<!-- Toast -->
+<div id="toast">✅ Bestelling verzonden! We nemen snel contact op.</div>
+
+<!-- ============================================================
+     JAVASCRIPT
+============================================================ -->
+```html
+<!-- VERVANG ALLEEN DIT SCRIPT BLOK ONDERAAN JE HTML -->
+
+<script>
+  // ---- Nav scroll effect ----
+  const nav = document.getElementById('nav');
+
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 40);
+  });
+
+  // ---- Hamburger / Mobile Menu ----
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobileMenu');
+
+  let menuOpen = false;
+
+  hamburger.addEventListener('click', () => {
+    menuOpen = !menuOpen;
+
+    mobileMenu.classList.toggle('open', menuOpen);
+
+    const spans = hamburger.querySelectorAll('span');
+
+    if (menuOpen) {
+      spans[0].style.transform = 'rotate(45deg) translate(5px, 5px)';
+      spans[1].style.opacity = '0';
+      spans[2].style.transform = 'rotate(-45deg) translate(5px, -5px)';
+    } else {
+      spans[0].style.transform = '';
+      spans[1].style.opacity = '1';
+      spans[2].style.transform = '';
+    }
+  });
+
+  function closeMobileMenu() {
+    menuOpen = false;
+
+    mobileMenu.classList.remove('open');
+
+    const spans = hamburger.querySelectorAll('span');
+
+    spans.forEach(span => {
+      span.style.transform = '';
+      span.style.opacity = '';
+    });
+  }
+
+  // ---- Scroll Animations ----
+  const fadeEls = document.querySelectorAll('.fade-up');
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, {
+    threshold: 0.12
+  });
+
+  fadeEls.forEach(el => observer.observe(el));
+
+  // ---- Form Submit ----
+  function handleSubmit() {
+    const name = document.getElementById('fname').value.trim();
+    const email = document.getElementById('email').value.trim();
+
+    if (!name || !email) {
+      alert('Vul minimaal je voornaam en e-mailadres in.');
+      return;
+    }
+
+    const toast = document.getElementById('toast');
+
+    toast.classList.add('show');
+
+    setTimeout(() => {
+      toast.classList.remove('show');
+    }, 4000);
+
+    // Reset velden
+    const fields = [
+      'fname',
+      'lname',
+      'email',
+      'phone',
+      'quantity',
+      'player-name',
+      'number',
+      'message'
+    ];
+
+    fields.forEach(id => {
+      const el = document.getElementById(id);
+
+      if (el) {
+        el.value = '';
+      }
+    });
+
+    document.getElementById('shirt-type').value = '';
+  }
+
+  // ---- Active nav link ----
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-links a');
+
+  window.addEventListener('scroll', () => {
+    let current = '';
+
+    sections.forEach(section => {
+      if (window.scrollY >= section.offsetTop - 120) {
+        current = section.id;
+      }
+    });
+
+    navLinks.forEach(link => {
+      const href = link.getAttribute('href');
+
+      if (href === `#${current}`) {
+        link.style.color = 'var(--gold)';
+      } else {
+        link.style.color = '';
+      }
+    });
+  });
+</script>
+```
+
+</body>
+</html>
